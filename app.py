@@ -2,12 +2,21 @@ import streamlit as st
 import cv2
 import tensorflow as tf 
 import numpy as np
-from keras.models import load_model
+#from keras.models import load_model
 import sys
 from streamlit_option_menu import option_menu
+import requests
+from tensorflow.keras.models import load_model
+import io
 
-#Loading the VGG16 model
-model= load_model('model.h5',compile=(False))
+# Define the URL of the model file on GitHub
+url = 'https://raw.githubusercontent.com/victoryeovil/InceptionV3-and-VGG16-model/main/model.h5'
+
+# Send a GET request to the URL and save the content to a variable
+response = requests.get(url)
+
+# Load the model from the content using the load_model function
+model = load_model(io.BytesIO(response.content))
 st.markdown('<style>body{background-color:Blue;}</style>',unsafe_allow_html=True)
 
 
